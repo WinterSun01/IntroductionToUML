@@ -1,4 +1,4 @@
-#include <Windows.h>
+п»ї#include <Windows.h>
 #include <iostream>
 #include <conio.h>
 #include <thread>
@@ -10,7 +10,7 @@ using namespace std;
 #define Enter 13
 
 #define MAX_TANK_VOLUME 60
-#define IDLE_CONSUMPTION 0.0003  //расход топлива на холостом ходу (л/сек)
+#define IDLE_CONSUMPTION 0.0003  //СЂР°СЃС…РѕРґ С‚РѕРїР»РёРІР° РЅР° С…РѕР»РѕСЃС‚РѕРј С…РѕРґСѓ (Р»/СЃРµРє)
 
 class Tank
 {
@@ -148,8 +148,8 @@ public:
             switch (key)
             {
             case Enter: driver_inside ? get_out() : get_in(); break;
-            case 'a': if (driver_inside) engine.start(); break; //нажать 'a' для запуска двигателя
-            case 'd': if (driver_inside) engine.stop(); break; //нажать 'd' для остановки двигателя
+            case 'a': if (driver_inside) engine.start(); break; //РЅР°Р¶Р°С‚СЊ 'a' РґР»СЏ Р·Р°РїСѓСЃРєР° РґРІРёРіР°С‚РµР»СЏ
+            case 'd': if (driver_inside) engine.stop(); break; //РЅР°Р¶Р°С‚СЊ 'd' РґР»СЏ РѕСЃС‚Р°РЅРѕРІРєРё РґРІРёРіР°С‚РµР»СЏ
             case Escape: get_out(); break;
             case ' ': if (driver_inside) start_fuel_consumption(); break;
             }

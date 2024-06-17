@@ -1,10 +1,10 @@
-﻿#include <iostream>
+#include <iostream>
 #include <cmath>
 #include <cstdlib>
 #include <ctime>
 
 #define Number_Pi 3.14159265358979323846
-#define MIN_SIZE 3
+#define MIN_SIZE 3 // ����������� ������ ��� ���� �����
 
 using namespace std;
 
@@ -40,7 +40,6 @@ public:
     void draw() const override
     {
         cout << "Drawing a square:" << endl;
-
         for (int i = 0; i < side; i++)
         {
             for (int j = 0; j < side; j++)
@@ -131,6 +130,7 @@ public:
 
 class Triangle : public Shape
 {
+protected:
     double a, b, c;
 
 public:
@@ -149,9 +149,9 @@ public:
 
     void secondaryProperties() const override
     {
-        double s = (a + b + c) / 2; //полупериметр треугольника
-        double area = sqrt(s * (s - a) * (s - b) * (s - c)); //площадь треугольника
-        double perimeter = a + b + c; //периметр треугольника
+        double s = (a + b + c) / 2;
+        double area = sqrt(s * (s - a) * (s - b) * (s - c));
+        double perimeter = a + b + c;
         cout << "Area = " << area << ", Perimeter = " << perimeter << endl;
     }
 
@@ -171,14 +171,45 @@ public:
     }
 };
 
-//для создания случайных фигур
+class EquilateralTriangle : public Triangle
+{
+public:
+    EquilateralTriangle(double side) : Triangle(side, side, side) {}
+
+    void primaryProperties() const override
+    {
+        cout << "Equilateral Triangle: side = " << a << endl;
+    }
+};
+
+class RightTriangle : public Triangle
+{
+public:
+    RightTriangle(double base, double height) : Triangle(base, height, sqrt(base* base + height * height)) {}
+
+    void primaryProperties() const override
+    {
+        cout << "Right Triangle: base = " << a << ", height = " << b << endl;
+    }
+};
+
+class ScaleneTriangle : public Triangle
+{
+public:
+    ScaleneTriangle(double side1, double side2, double side3) : Triangle(side1, side2, side3) {}
+
+    void primaryProperties() const override
+    {
+        cout << "Scalene Triangle: sides = " << a << ", " << b << ", " << c << endl;
+    }
+};
+
 class ShapeFactory
 {
 public:
-
     static Shape* createRandomShape()
     {
-        int shapeType = rand() % 4;
+        int shapeType = rand() % 7; // Increased to accommodate new triangle types
 
         switch (shapeType)
         {
@@ -186,11 +217,13 @@ public:
         case 1: return new Rectangle(rand() % (10 - MIN_SIZE + 1) + MIN_SIZE, rand() % (10 - MIN_SIZE + 1) + MIN_SIZE);
         case 2: return new Circle(rand() % (10 - MIN_SIZE + 1) + MIN_SIZE);
         case 3: return createRandomTriangle();
+        case 4: return new EquilateralTriangle(rand() % (10 - MIN_SIZE + 1) + MIN_SIZE);
+        case 5: return new RightTriangle(rand() % (10 - MIN_SIZE + 1) + MIN_SIZE, rand() % (10 - MIN_SIZE + 1) + MIN_SIZE);
+        case 6: return new ScaleneTriangle(rand() % (10 - MIN_SIZE + 1) + MIN_SIZE, rand() % (10 - MIN_SIZE + 1) + MIN_SIZE, rand() % (10 - MIN_SIZE + 1) + MIN_SIZE);
         default: return nullptr;
         }
     }
 
-    //для создания случайного треугольника
     static Shape* createRandomTriangle()
     {
         double a, b, c;
@@ -205,8 +238,7 @@ public:
     }
 };
 
-int main() 
-{
+int main() {
     srand(time(0));
 
     const int numShapes = 10;

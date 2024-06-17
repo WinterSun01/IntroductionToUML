@@ -1,16 +1,17 @@
-#include <iostream>
+﻿#include <iostream>
 #include <cmath>
 #include <cstdlib>
 #include <ctime>
 
 #define Number_Pi 3.14159265358979323846
-#define MIN_SIZE 3 // ����������� ������ ��� ���� �����
+#define MIN_SIZE 3
 
 using namespace std;
 
 class Shape
 {
 public:
+
     virtual void primaryProperties() const = 0;
     virtual void secondaryProperties() const = 0;
     virtual void draw() const = 0;
@@ -22,6 +23,7 @@ class Square : public Shape
     double side;
 
 public:
+   
     Square(double s) : side(s) {}
 
     void primaryProperties() const override
@@ -56,6 +58,7 @@ class Rectangle : public Shape
     double width, height;
 
 public:
+
     Rectangle(double w, double h) : width(w), height(h) {}
 
     void primaryProperties() const override
@@ -90,6 +93,7 @@ class Circle : public Shape
     double radius;
 
 public:
+
     Circle(double r) : radius(r) {}
 
     void primaryProperties() const override
@@ -134,6 +138,7 @@ protected:
     double a, b, c;
 
 public:
+
     Triangle(double side1, double side2, double side3) : a(side1), b(side2), c(side3)
     {
         if (a + b <= c || a + c <= b || b + c <= a)
@@ -171,9 +176,11 @@ public:
     }
 };
 
+//равносторонний треугольник
 class EquilateralTriangle : public Triangle
 {
 public:
+
     EquilateralTriangle(double side) : Triangle(side, side, side) {}
 
     void primaryProperties() const override
@@ -182,9 +189,11 @@ public:
     }
 };
 
+//прямоугольный треугольник
 class RightTriangle : public Triangle
 {
 public:
+
     RightTriangle(double base, double height) : Triangle(base, height, sqrt(base* base + height * height)) {}
 
     void primaryProperties() const override
@@ -193,9 +202,11 @@ public:
     }
 };
 
+//разносторонний треугольник
 class ScaleneTriangle : public Triangle
 {
 public:
+
     ScaleneTriangle(double side1, double side2, double side3) : Triangle(side1, side2, side3) {}
 
     void primaryProperties() const override
@@ -207,9 +218,10 @@ public:
 class ShapeFactory
 {
 public:
+
     static Shape* createRandomShape()
     {
-        int shapeType = rand() % 7; // Increased to accommodate new triangle types
+        int shapeType = rand() % 7;
 
         switch (shapeType)
         {
@@ -238,7 +250,8 @@ public:
     }
 };
 
-int main() {
+int main() 
+{
     srand(time(0));
 
     const int numShapes = 10;
@@ -264,3 +277,4 @@ int main() {
 
     return 0;
 }
+
